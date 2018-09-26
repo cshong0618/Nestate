@@ -18,4 +18,13 @@ graph.add(s2);
 
 console.log(graph);
 
+var action = new Nestate.Action(() => {
+    console.log("Both states are true");
+});
+action.compareBy("AND");
+action.addParent(s1);
+action.addParent(s2);
+s1.value = 42;
+s2.value = 100;
+
 module.exports = Nestate;

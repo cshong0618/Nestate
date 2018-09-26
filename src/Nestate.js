@@ -41,7 +41,46 @@ class State {
     }
 
     get valid() {
-        return this._validFn();
+        return this._validFn(this._value);
+    }
+}
+
+class Action {
+    constructor (fn) {
+        this.TYPES = {
+            AND: (_parents) => {
+                return !_parents.some(val => val.valid === false);
+            },
+            OR: (_parents) => {
+                return _parents.some(val => val.valid === true);
+            },
+        };
+
+        // Use callback else no-op;
+        this._compare = this.TYPES["AND"];
+        
+        this._fn = fn;
+        this._parents = [];
+        this._next = null;
+
+        this.callback = () => {
+            if(this._compare(this._parents)) {
+                this._fn();
+            }
+        }
+    }
+
+    addParent(state) {
+        state._graphFn = this.callback;
+        this._parents.push(state);
+    }
+
+    get execute() {
+        return this._fn;
+    }
+
+    compareBy(type) {
+        this._compare = this.TYPES[type] || this.TYPES["AND"];
     }
 }
 
@@ -70,7 +109,7 @@ class StateGraphNode {
         };
 
         this._callback = (value) => {
-            
+
         };
     }
     
@@ -99,6 +138,7 @@ class Nestate {
 }
 
 module.exports = {
+    Action: Action,
     State: State,
     StateGraphNode: StateGraphNode,
     Nestate: Nestate
