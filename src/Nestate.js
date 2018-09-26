@@ -1,6 +1,7 @@
 const assert = require("assert");
 
 class State {
+    
     constructor(key, value) {
         this._key = key;
         this._value = value;
@@ -36,6 +37,10 @@ class State {
     set valid(validFn) {
         this._validFn = validFn;
     }
+
+    get valid() {
+        return this._validFn();
+    }
 }
 
 class StateGraphNode {
@@ -43,9 +48,9 @@ class StateGraphNode {
 
         // May return null
         // Only take in valid states for now
-        
+        var argtype = state.__proto__.constructor.name;
         var _state = (() => {
-            if(typeof(state) === "State") {
+            if(argtype === "State") {
                 return state;
             } else {
                 return null;
@@ -53,6 +58,7 @@ class StateGraphNode {
         })();
 
         this.root = {
+            parent: null,
             state: _state,
             next: null
         };
@@ -60,12 +66,17 @@ class StateGraphNode {
     
     add(state) {
         var child = new StateGraphNode(state);
+        child.addParent(this.root);
 
         if(this.root.state) {
             this.root.next = child;
         } else {
             this.root.state = child;
         }
+    }
+
+    addParent(state) {
+        this.root.parent = state;
     }
 }
 
