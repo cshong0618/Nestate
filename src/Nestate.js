@@ -7,6 +7,7 @@ class State {
         this._value = value;
 
         this._fn = () => {};
+        this._graphFn = () => {};
         this._validFn = () => true;
     }
 
@@ -15,6 +16,7 @@ class State {
 
         if (this._validFn(this._value)) {
             this._fn(this._value);
+            this._graphFn(this._value);
         }
     }
 
@@ -57,10 +59,18 @@ class StateGraphNode {
             }
         })();
 
+        _state._graphFn = (value) => {
+            this._callback(value);
+        };
+
         this.root = {
-            parent: null,
+            parent: [],
             state: _state,
             next: null
+        };
+
+        this._callback = (value) => {
+            
         };
     }
     
@@ -76,7 +86,7 @@ class StateGraphNode {
     }
 
     addParent(state) {
-        this.root.parent = state;
+        this.root.parent.push(state);
     }
 }
 
