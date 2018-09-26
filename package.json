@@ -1,0 +1,12 @@
+{
+  "name": "nestate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/App.js",
+  "scripts": {
+    "test": "node ./test/LibraryImportTest.js",
+    "start": "node ./src/App.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
