@@ -1,30 +1,22 @@
 var Nestate = require("./Nestate");
 
-var s1 = new Nestate.State("number42", 10);
-s1.callback = (val) => {
-    console.log("State is true now");
-}
+var machine = new Nestate();
 
-s1.valid = (val) => {
-    return val === 42;
-}
-
-var s2 = new Nestate.State("number100", 20);
-s2.callback = (val) => {console.log("State is true now")};
-s2.valid = (val) => val === 100;
-
-var graph = new Nestate.StateGraphNode(s1);
-graph.add(s2);
-
-console.log(graph);
-
-var action = new Nestate.Action(() => {
-    console.log("Both states are true");
+machine.addState("mustbe42", 10, {
+    callbackFn: (val) => console.log(`Conditional is hit. ${val}`),
+    validFn: (val) => val === 42
 });
-action.compareBy("AND");
-action.addParent(s1);
-action.addParent(s2);
-s1.value = 42;
-s2.value = 100;
+
+machine.addState("mustbe100", 10, {
+    callbackFn: (val) => console.log(`Conditional is hit. ${val}`),
+    validFn: (val) => val === 100
+});
+
+machine.addAction("fire_when_42_and_100", (val) => {
+    console.log("State 'mustbe42' and 'mustbe100' are hit")
+}, ["mustbe42", "mustbe100"]);
+
+machine.updateState("mustbe42", 42);
+machine.updateState("mustbe100", 100);
 
 module.exports = Nestate;
