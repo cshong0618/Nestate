@@ -5,7 +5,7 @@
   "main": "src/App.js",
   "scripts": {
     "test": "node ./test/LibraryImportTest.js",
-    "start": "node ./src/App.js"
+    "start": "node ./src/Nestate.js"
   },
   "author": "",
   "license": "ISC"
