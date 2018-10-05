@@ -1,12 +1,16 @@
 {
   "name": "nestate",
   "version": "0.0.1",
-  "description": "",
-  "main": "src/App.js",
+  "description": "A simple state observing mechanism that only fires when the stored value is compared to true.",
+  "main": "src/Netstate.js",
   "scripts": {
     "test": "node ./test/LibraryImportTest.js",
     "start": "node ./src/Nestate.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "shaong",
+  "license": "ISC",
+  "keywords": [
+    "state",
+    "truth"
+  ]
 }

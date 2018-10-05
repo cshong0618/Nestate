@@ -84,51 +84,6 @@ class Action {
     }
 }
 
-class StateGraphNode {
-    constructor (state) {
-
-        // May return null
-        // Only take in valid states for now
-        var argtype = state.__proto__.constructor.name;
-        var _state = (() => {
-            if(argtype === "State") {
-                return state;
-            } else {
-                return null;
-            }
-        })();
-
-        _state._graphFn = (value) => {
-            this._callback(value);
-        };
-
-        this.root = {
-            parent: [],
-            state: _state,
-            next: null
-        };
-
-        this._callback = (value) => {
-
-        };
-    }
-    
-    add(state) {
-        var child = new StateGraphNode(state);
-        child.addParent(this.root);
-
-        if(this.root.state) {
-            this.root.next = child;
-        } else {
-            this.root.state = child;
-        }
-    }
-
-    addParent(state) {
-        this.root.parent.push(state);
-    }
-}
-
 class Nestate {
     constructor() {
         this.states = {};
