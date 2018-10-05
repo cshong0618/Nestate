@@ -1,5 +1,3 @@
-const assert = require("assert");
-
 class State {
     
     constructor(key, value) {
