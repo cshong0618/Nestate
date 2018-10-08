@@ -1,6 +1,6 @@
 {
   "name": "nestate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple state observing mechanism that only fires when the stored value is compared to true.",
   "main": "src/Netstate.js",
   "scripts": {
