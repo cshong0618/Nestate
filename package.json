@@ -8,7 +8,8 @@
     "start": "node ./src/Nestate.js"
   },
   "author": "shaong",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": "cshong0618/Nestate",
   "keywords": [
     "state",
     "truth"
